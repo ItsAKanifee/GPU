@@ -30,6 +30,7 @@ This folder contains the starting point for designing my own GPU. Here, I will d
     - Debug and iterate on hardware
 
 5. **Milestones**
+    - [ ] Do a basic Matrix Multiplication
     - [ ] Display a solid color on screen
     - [ ] Display a test pattern (e.g., color bars)
     - [ ] Render a static 1080p image from memory
