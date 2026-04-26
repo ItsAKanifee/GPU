@@ -1,27 +1,33 @@
-# 🖥️ FPGA GPU Project  
-*A minimal, custom graphics pipeline implemented on a Xilinx Spartan‑7 FPGA.*
+# 🖥️ GPU Project  
+*A minimal, custom graphics pipeline implemented in a 525 tapeout.*
 
 ## 📌 Overview  
-This project implements a **simple, fixed‑function GPU** on an FPGA.  
-The goal is to design and build a working graphics pipeline capable of:
+This project implements a **simple, fixed‑function GPU architecture** on an FPGA as an early prototype for a future **custom silicon (ASIC) tapeout**.  
+The FPGA serves as a rapid‑iteration platform to explore:
 
-- Rasterizing triangles  
-- Interpolating vertex attributes  
-- Running a minimal fragment shader  
-- Writing pixels to a framebuffer  
-- Outputting video over HDMI  
+- Graphics pipeline architecture  
+- Rasterization algorithms  
+- Memory subsystem behavior  
+- Fixed‑point arithmetic choices  
+- Module boundaries and timing characteristics  
 
-The architecture is intentionally small and educational — inspired by early GPUs and modern FPGA‑friendly designs.
+The long‑term vision is to evolve this design into a **synthesizable, timing‑clean, ASIC‑ready GPU microarchitecture** suitable for fabrication.
 
 ---
 
 ## 🎯 Project Goals  
-- Understand GPU architecture at a hardware level  
-- Implement a full graphics pipeline in SystemVerilog  
-- Explore rasterization math (edge functions, barycentric coordinates)  
-- Build a working framebuffer + HDMI output  
-- Create a command interface for host‑driven rendering  
-- Document the entire process for reproducibility and learning  
+### **Short‑term (FPGA prototype)**
+- Validate the core graphics pipeline on real hardware  
+- Characterize performance, area usage, and timing on FPGA  
+- Explore architectural tradeoffs (parallelism, precision, memory layout)  
+- Build a functional reference implementation for simulation and verification  
+
+### **Long‑term (ASIC tapeout path)**
+- Define a clean, modular, synthesizable GPU architecture  
+- Develop ASIC‑friendly RTL with clear timing boundaries  
+- Establish a memory hierarchy suitable for silicon (SRAM macros, caches, FIFOs)  
+- Prepare for physical design: clocking, floorplanning, and power domains  
+- Produce documentation and test infrastructure required for tapeout  
 
 ---
 
