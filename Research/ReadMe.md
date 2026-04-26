@@ -19,6 +19,10 @@ This folder is dedicated to collecting research, notes, and references related t
 - Organize content by topic or theme for easy navigation
 - Keep track of questions and challenges encountered during research
 
+## Folders
+- Overview:
+    - Basic details over what a GPU is and how it works. Preliminary information before starting the project goes here
+
 ---
 
 *This folder will evolve as the project advances and new information is gathered.*
