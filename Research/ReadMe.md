@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This folder is dedicated to collecting research, notes, and references related to the design and implementation of a custom GPU. It serves as a knowledge base to inform the prototyping and development process.
+This project is dedicated to collecting research, notes, and references related to the design and implementation of a custom GPU. It serves as a knowledge base to inform the prototyping and development process.
 
 ## Contents
 
