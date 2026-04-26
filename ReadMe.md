@@ -151,8 +151,6 @@ This project is informed by research into GPU architecture, including:
 - Stanford CS149 / CMU 15‑418 — GPU architecture lectures  
 - Open‑source FPGA GPU experiments  
 
-(Your `research/` folder contains detailed notes.)
-
 ---
 
 ## 🧭 Roadmap  
@@ -170,4 +168,4 @@ This is a research and learning project. Contributions, suggestions, and discuss
 ---
 
 ## 📄 License  
-MIT License (or whatever you choose).
+MIT License 
