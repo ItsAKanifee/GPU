@@ -146,9 +146,11 @@ All derivations live in `research/math/`.
 This project is informed by research into GPU architecture, including:
 
 - GPU Demystified — *Introduction to GPU Architectures and Programming*  
-- Medium — *Understanding GPU Architecture: Basics and Key Concepts*  
+- Medium — *Understanding GPU Architecture: Basics and Key Concepts* 
+- Branch Education — *How do Graphics Cards Work? Exploring GPU Architecture* 
 - Stanford CS149 / CMU 15‑418 — GPU architecture lectures  
-- Open‑source FPGA GPU experiments  
+- Open‑source FPGA GPU experiments 
+
 
 ---
 
