@@ -34,44 +34,43 @@ The long‑term vision is to evolve this design into a **synthesizable, timing�
 ## 🧱 Repository Structure  
 
 gpu-project/
-│
-├── README.md
-├── Overview/
-├── Research/
-├── FPGA Prototype/
-├── Design/
-├── Diagrams/
-├── HDL/
-├── Experiments/
-├── Host/
-└── Docs/
+-  README.md
+- Overview/
+- Research/
+- FPGA Prototype/
+- Design/
+- Diagrams/
+- HDL/
+- Experiments/
+- Host/
+- Docs/
 
 
-### **Overview/**  
+### **Overview**  
 High‑level descriptions of the project, goals, and terminology.
 
-### **Research/**  
+### **Research**  
 Notes on GPU architecture, rasterization math, FPGA constraints, and fixed‑point formats.
 
-### **FPGA Prototype/** 
+### **FPGA Prototype** 
 Implementation of a basic GPU using System Verilog to be implemented on a Spartan 7 Board
 
-### **Design/**  
+### **Design**  
 Module‑level specifications for the command processor, rasterizer, shader, framebuffer, and HDMI controller.
 
-### **Diagrams/**  
+### **Diagrams**  
 Block diagrams, flowcharts, and memory maps (Draw.io or Excalidraw).
 
-### **HDL/**  
+### **HDL**  
 SystemVerilog source code, testbenches, and board constraints.
 
-### **Experiments/**  
+### **Experiments**  
 Rendering tests, performance measurements, debug logs, and incremental results.
 
-### **Host/**  
+### **Host**  
 UART protocol, command formats, and Python scripts for sending draw commands.
 
-### **Docs/**  
+### **Docs**  
 Final report, presentation notes, and milestone tracking.
 
 ---

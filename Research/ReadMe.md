@@ -16,6 +16,7 @@ This project is dedicated to collecting research, notes, and references related 
 ## How to Use
 
 - Add new findings, insights, or references as you progress
+- Write down notes in Docx, PDF, and Markdown
 - Organize content by topic or theme for easy navigation
 - Keep track of questions and challenges encountered during research
 
