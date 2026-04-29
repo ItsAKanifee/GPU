@@ -127,12 +127,10 @@ This project is informed by research into GPU architecture, including:
 ## 🧭 Roadmap  
 - Research Workings of GPU
     - Understand design, architecture limitations, components, etc
-- Create A System For Basic Matrix Multiplication
-- Add Z‑buffer  
-- Add texture sampling  
-- Add simple shading models  
-- Add parallel fragment pipelines  
-- Explore compute‑style SIMD cores  
+- Create Design Goals Based off Findings
+- Test out Designs on Simulation and FPGA
+- Upon getting a working *Prototype*, research limitations of 525, and optimize accordingly 
+    - Research Circuit Design to Better Understand Physical Implmentation
 
 ---
 
