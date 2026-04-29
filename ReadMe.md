@@ -79,26 +79,7 @@ Final report, presentation notes, and milestone tracking.
 
 The GPU consists of the following major components:
 
-### **1. Command Processor**  
-Receives draw commands from a host (UART or soft CPU) and dispatches triangles to the rasterizer.
-
-### **2. Triangle Setup Unit**  
-Computes bounding boxes and edge function coefficients.
-
-### **3. Rasterizer**  
-Iterates over pixels, evaluates edge functions, and generates fragments.
-
-### **4. Fragment Shader**  
-A minimal pipeline supporting:  
-- Flat color  
-- Interpolated color  
-- Optional texture lookup (BRAM‑backed)
-
-### **5. Framebuffer**  
-BRAM‑based dual‑port memory storing RGB565 pixels.
-
-### **6. HDMI Output**  
-Reads the framebuffer and generates video timing signals.
+### *Following Will Be Updated Upon Further Progress*
 
 ---
 
@@ -107,20 +88,14 @@ Reads the framebuffer and generates video timing signals.
 - Barycentric coordinates for interpolation  
 - Fixed‑point arithmetic for all geometry and shading  
 - Address mapping for framebuffer writes  
+- Matrix Multiplication
 
 All derivations live in `research/math/`.
 
 ---
 
 ## 🧪 Current Status  
-- [ ] HDMI output stable  
-- [ ] Framebuffer write path implemented  
-- [ ] Command interface working  
-- [ ] Single‑triangle rasterizer  
-- [ ] Attribute interpolation  
-- [ ] Texture support  
-- [ ] Performance tuning  
-- [ ] Final documentation  
+- [ ] Research What Makes a GPU 
 
 ---
 
@@ -133,12 +108,7 @@ All derivations live in `research/math/`.
 - USB‑UART cable  
 
 ### **Build Instructions**
-1. Open Vivado  
-2. Import the `hdl/` directory  
-3. Apply the board constraints from `hdl/constraints/`  
-4. Synthesize, implement, and generate bitstream  
-5. Program the FPGA  
-6. Use `host/send-triangle.py` to draw test triangles  
+-- *To Be Added Further Along Project*
 
 ---
 
@@ -155,6 +125,9 @@ This project is informed by research into GPU architecture, including:
 ---
 
 ## 🧭 Roadmap  
+- Research Workings of GPU
+    - Understand design, architecture limitations, components, etc
+- Create A System For Basic Matrix Multiplication
 - Add Z‑buffer  
 - Add texture sampling  
 - Add simple shading models  

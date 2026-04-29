@@ -12,6 +12,7 @@ This project is dedicated to collecting research, notes, and references related 
 - Documentation of relevant SystemVerilog features
 - Links to useful resources and tutorials
 - Diagrams and block-level sketches
+- Limitations to keep note of in preparation for 525
 
 ## How to Use
 
@@ -21,8 +22,17 @@ This project is dedicated to collecting research, notes, and references related 
 - Keep track of questions and challenges encountered during research
 
 ## Folders
-- Overview:
-    - Basic details over what a GPU is and how it works. Preliminary information before starting the project goes here
+
+
+## Current File & Folder Map
+
+- **overview/**
+    - GPU Basics.docx
+    - Understanding GPUs.docx
+- **fpga-notes/** *(empty)*
+- **circuit-design/** *(empty)*
+- **gpu-architecture/** *(empty)*
+- **math/** *(empty)*
 
 ---
 
