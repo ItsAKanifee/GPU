@@ -29,6 +29,7 @@ This project is dedicated to collecting research, notes, and references related 
 - **overview/**
     - GPU Basics.docx
     - Understanding GPUs.docx
+    - GPU_what-to-know.md
 - **fpga-notes/** *(empty)*
 - **circuit-design/** *(empty)*
 - **gpu-architecture/** *(empty)*

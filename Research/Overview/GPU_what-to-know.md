@@ -2,7 +2,7 @@
 
 ## Abstract
 
-This document is made to showcase my current understanding of the workings of a GPU, and is made to act as a jumping off point for design research moving forward. 
+This document is made to summarize current sources to showcase my current understanding of the workings of a GPU, and is made to act as a jumping off point for design research moving forward. 
 
 ## What is a GPU
 
