@@ -13,3 +13,9 @@ A GPU is a processing unit, made to run multiple instructions in parallel
 - CPUs are better suited to run a variety of tasks; GPUs can run a very small amount of tasks such as arithmetic
 - CPU speed is measured by clock cycle; GPU speed is measured by FLOPs (Floating Point Operations Per Second)
 
+### How Does a GPU Work
+- Processes are split across cores
+
+### Need to Learn Further
+- [ ] How do Floating Points work in Hardware, and how to implement floating point operations
+- [ ] Futher understand hardware implementation of GPU cores

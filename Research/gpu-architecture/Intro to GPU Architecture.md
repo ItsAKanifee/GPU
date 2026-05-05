@@ -13,4 +13,13 @@ https://enccs.github.io/openmp-gpu/gpu-architecture/
 ### Differences btwn GPUs and CPUs
 - CPUs:
     - Designed to execute a sequence of operations (thread) as fast as possible
+    - Combats latency w/ data laches and control flow
+        
 
+- GPUs:
+    - Designed to operate on large sums of data in parallel
+    - Combats latency w/ large amount of computation
+
+### GPU Programming Model
+
+- Accelerators:
