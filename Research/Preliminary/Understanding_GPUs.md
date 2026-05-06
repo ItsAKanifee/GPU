@@ -42,3 +42,27 @@ https://medium.com/ai-insights-cobet/understanding-gpu-architecture-basics-and-k
     - Computationally expensive to transfer data from DRAM to SRAM
     - Optimizing efficient memory usage optimizes performance of tasks
 
+### Architecture Basics
+- Streaming Multiprocessors (SM):
+    - Fundumental Processing Unit of a GPU
+    - GPUs contain multiple, all working independently
+        - More processors means faster computation
+    - Contain GPU Cores, a small memory pool (SRAM), and execution units
+    - A single program gets split btwn multiple SMs
+
+- Program
+    - Specific instance of kernel code, runs in parallel
+    - Assigned a Program ID (PID)
+    - Works on a specific chunk of data 
+    - Uses SRAM within the SM
+
+- Core
+    - Smallest unit of computation in a GPU
+    - Optimized for Floating Point Operations (FLOPs)
+    - Performs one FLOP per cycle
+
+- Warp 
+    - Grouping of Cores
+    - Diffferent GPUs have different warp sizes
+        - Nvidia: 32 cores per warp
+        - AMD: 64 cores per warp
