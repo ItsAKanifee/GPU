@@ -17,3 +17,11 @@ https://drilian.com/posts/2023.01.10-floating-point-numbers-and-rounding/
     - Mantissa:
         - 23 or 52 bits (32/64 bit respectively)
         - Numbers after the decimal point before exponent is applied
+
+- C++ Floating Point Bit Calculator:
+    - (signBit ? -1 : 1) * (1 + (mantissaBits / Pow2(52 + 1)) )* Pow2(exponentBits - bias)
+
+### Typical Floating Point Operation
+- Fused Multiply-Add (FMA): 
+    - A * B + C
+    - Operation done in 1 clock cycle
