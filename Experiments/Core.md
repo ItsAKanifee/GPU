@@ -12,3 +12,7 @@ The entire GPU architecture starts at the core, i.e the part that does the float
     - Learn how to implement one in hardware 
 
 ## Idea
+- [] Create a floating point (32 bit) adder that can add 2 floats in one clock cycle
+
+
+## Failures
