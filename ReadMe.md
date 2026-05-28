@@ -5,11 +5,8 @@
 This project implements a **simple, fixed‑function GPU architecture** on an FPGA as an early prototype for a future **custom silicon (ASIC) tapeout**.  
 The FPGA serves as a rapid‑iteration platform to explore:
 
-- Graphics pipeline architecture  
-- Rasterization algorithms  
-- Memory subsystem behavior  
-- Fixed‑point arithmetic choices  
-- Module boundaries and timing characteristics  
+- GPU Architecture and Design Paradigms
+- Understanding of Basics
 
 The long‑term vision is to evolve this design into a **synthesizable, timing‑clean, ASIC‑ready GPU microarchitecture** suitable for fabrication.
 
