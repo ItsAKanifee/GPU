@@ -7,6 +7,7 @@ This project is dedicated to collecting research, notes, and references related 
 ## Contents
 
 - Summaries of articles, papers, and books on GPU architecture
+- Notes from Consultation with experts and AI
 - Notes on FPGA implementation strategies
 - Comparisons of open-source GPU projects
 - Documentation of relevant SystemVerilog features
