@@ -38,7 +38,6 @@ gpu-project/
 - Design/
 - Diagrams/
 - HDL/
-- Experiments/
 - Host/
 - Docs/
 
@@ -61,9 +60,6 @@ Block diagrams, flowcharts, and memory maps (Draw.io or Excalidraw).
 ### **HDL**  
 SystemVerilog source code, testbenches, and board constraints.
 
-### **Experiments**  
-Rendering tests, performance measurements, debug logs, and incremental results.
-
 ### **Host**  
 UART protocol, command formats, and Python scripts for sending draw commands.
 
@@ -81,12 +77,7 @@ The GPU consists of the following major components:
 ---
 
 ## 🧮 Math Used  
-- Edge functions for inside‑triangle testing  
-- Barycentric coordinates for interpolation  
-- Fixed‑point arithmetic for all geometry and shading  
-- Address mapping for framebuffer writes  
-- Matrix Multiplication
-
+*To be added*
 All derivations live in `research/math/`.
 
 ---
@@ -101,8 +92,6 @@ All derivations live in `research/math/`.
 ### **Prerequisites**
 - Xilinx Vivado  
 - Boolean Board (Spartan‑7)  
-- Python 3 (for host scripts)  
-- USB‑UART cable  
 
 ### **Build Instructions**
 -- *To Be Added Further Along Project*
@@ -117,6 +106,7 @@ This project is informed by research into GPU architecture, including:
 - Branch Education — *How do Graphics Cards Work? Exploring GPU Architecture* 
 - Stanford CS149 / CMU 15‑418 — GPU architecture lectures  
 - Open‑source FPGA GPU experiments 
+- Other sources listed in Research/resources
 
 
 ---
