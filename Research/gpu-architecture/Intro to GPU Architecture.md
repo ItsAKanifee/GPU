@@ -5,9 +5,6 @@
 https://enccs.github.io/openmp-gpu/gpu-architecture/
 
 ## Summary
-### Why use GPUs
-- The term GPU is often used interchangeably with "accelerator".
-- GPUs offer much higher instruction throughput and memory bandwidth than CPUs for data-parallel workloads.
 
 ### GPU / accelerator model
 - Accelerators are separate devices that include processor, memory, and power management, and operate under a host (CPU) that controls execution and data movement.
