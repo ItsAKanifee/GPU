@@ -42,35 +42,35 @@ Each component above plays a distinct role in balancing compute throughput, memo
 
 ```mermaid
 flowchart LR
-		CPU[CPU / Host] -->|Commands / DMA| PCIe[PCIe / NVLink]
-		PCIe --> MC[Memory Controller / VRAM]
-		PCIe --> CP[Command Processor]
-		CP --> SMs[SM (Streaming Multiprocessors)]
-		SMs --> ALU[ALUs]
-		SMs --> TMU[Texture Units]
-		SMs --> ROP[ROPs / Pixel Backend]
-		MC --> VRAM[VRAM (HBM/GDDR)]
-		SMs --> L2[L2 Cache]
-		L2 --> MC
+    CPU["CPU / Host"] -->|Commands / DMA| PCIe["PCIe / NVLink"]
+    PCIe --> MC["Memory Controller / VRAM"]
+    PCIe --> CP["Command Processor"]
+    CP --> SMs["SMs (Streaming Multiprocessors)"]
+    SMs --> ALU["ALUs"]
+    SMs --> TMU["Texture Units"]
+    SMs --> ROP["ROPs / Pixel Backend"]
+    MC --> VRAM["VRAM (HBM/GDDR)"]
+    SMs --> L2["L2 Cache"]
+    L2 --> MC
 ```
 
 ### Streaming Multiprocessor (SM) internal view
 
 ```mermaid
 flowchart TB
-		subgraph SM [Streaming Multiprocessor]
-			IFU(Instruction Fetch/Decode)
-			Sched[Scheduler]
-			RF[Register File]
-			ALUs[ALUs / Vector Units]
-			Shared[Shared Memory]
-			L1[L1 / Data Cache]
-		end
-		IFU --> Sched --> ALUs
-		RF --> ALUs
-		Shared --> ALUs
-		ALUs --> L1
-		L1 --> L2[L2 Cache]
+    subgraph SM["Streaming Multiprocessor"]
+        IFU("Instruction Fetch/Decode")
+        Sched["Scheduler"]
+        RF["Register File"]
+        ALUs["ALUs / Vector Units"]
+        Shared["Shared Memory"]
+        L1["L1 / Data Cache"]
+    end
+    IFU --> Sched --> ALUs
+    RF --> ALUs
+    Shared --> ALUs
+    ALUs --> L1
+    L1 --> L2["L2 Cache"]
 ```
 
 
