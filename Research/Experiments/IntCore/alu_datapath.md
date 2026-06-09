@@ -1,4 +1,4 @@
-# <Experiment Name>
+# ALU Data Path
 
 ## Objective
 Create a functional datapath for a Int Core, involving ALUs, Cache, and Instruction.
