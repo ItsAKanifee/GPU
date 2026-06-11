@@ -36,6 +36,25 @@
 
 Each component above plays a distinct role in balancing compute throughput, memory bandwidth, and latency to execute graphics and general-purpose workloads efficiently.
 
+## Design Goals
+- 1 SM, SIMT core
+    - Warp size: 8
+    - Resident warps: 2–4
+
+- Datapath
+    - 32‑bit INT ALU (optional multi‑cycle FP16/FP32)
+
+- Memory (within 256 KB)
+    - 16–32 KB instruction memory
+    - 4–16 KB register file
+    - 8–16 KB shared memory
+    - Remaining as global buffer
+
+- Control
+    - Simple round‑robin warp scheduler
+    - In‑order pipeline, 3–5 stages
+    - Minimal SIMT ISA
+
 ## Diagrams
 
 ### High-level GPU block diagram
