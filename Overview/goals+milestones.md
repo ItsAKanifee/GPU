@@ -1,3 +1,10 @@
+# Goals
+
+## Overall Goals
+- [ ] Understand the workings and core components of a GPU
+- [ ] Create a basic implementation able to run simple tasks like matrix multiplication
+- [ ] Allow for the GPU to be 'programmed' 
+- [ ] Have it draw 2D shapes 
 ## Design Goals
 - 1 SM, SIMT core
     - Warp size: 8
