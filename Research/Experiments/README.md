@@ -7,12 +7,14 @@ This folder contains reproducible experiments, component validations, and microb
 ## Scope
 
 In scope:
+
 - Component validation (e.g., adders, ALUs, memory timing)
 - Design tradeoff analysis (precision vs. area, latency vs. throughput)
 - Microbenchmarks and performance characterization
 - RTL simulation and synthesis metrics
 
 Out of scope:
+
 - General research notes (use `Research/Preliminary/` or `Research/gpu-architecture/`)
 - Meeting notes and consultations (use `Research/consultations/`)
 
@@ -63,12 +65,15 @@ What you expect to find or prove (1–2 sentences).
 ## Example: Floating-Point Adder Validation
 
 ### Objective
+
 Validate that a 32-bit IEEE-754 floating-point adder meets timing and correctness targets on the target FPGA.
 
 ### Hypothesis
+
 A pipelined exponent/mantissa alignment and CLA-style mantissa adder will meet 100 MHz timing with acceptable area.
 
 ### Method
+
 - **Setup:** Vivado 2021.2, target: Spartan-7 XC7A35T, SystemVerilog testbench, 10k random vectors generated with Python.
 - **Procedure:**
     1. Synthesize the adder with timing constraints.
@@ -77,10 +82,12 @@ A pipelined exponent/mantissa alignment and CLA-style mantissa adder will meet 1
 - **Metrics:** Cycle time, LUT/FF usage, mismatches against reference.
 
 ### Results
+
 - **Summary:** Passed 10k random vectors (0 mismatches). Timing: 9.8 ns (≈102 MHz). Area: 1,240 LUTs.
 - **Raw data:** link waveforms, reports, and logs from the appropriate folder.
 
 ### Analysis
+
 Adder meets current timing and area targets. Next: integrate into ALU and run end-to-end datapath tests.
 
 ## Recommended Workflow
@@ -94,3 +101,66 @@ Adder meets current timing and area targets. Next: integrate into ALU and run en
 
 - See `Research/References.md` for external resources.
 - See `Research/gpu-architecture/` for architecture-level context.
+
+## Experiments — Running SystemVerilog tests remotely
+
+Purpose:
+
+- Notes and instructions for running experiment simulation and tests on a remote tester over SSH (when the simulator is not installed locally).
+
+Prerequisites:
+
+- SSH access to a remote machine with a SystemVerilog simulator (VCS, Questa, Icarus, etc.).
+- `ssh` and `scp` available locally.
+- A remote working directory where you can run builds and simulations.
+
+Quick steps:
+
+1. Copy the experiment folder (or specific files) to the remote host:
+
+```powershell
+scp -r Research/Experiments/my-adder-experiment user@remote:/home/user/sim-work/my-adder-experiment
+```
+
+1. SSH to the remote host and run the simulator or test script:
+
+```powershell
+ssh user@remote
+cd /home/user/sim-work/my-adder-experiment
+# example: run a Makefile target or simulator command
+make sim
+# or
+vcs -full64 -sverilog module/*.sv tb/*.sv -o simv && ./simv +UVM_TESTNAME=...
+```
+
+1. Retrieve results/logs back to local machine:
+
+```powershell
+scp user@remote:/home/user/sim-work/my-adder-experiment/output/*.log Research/Experiments/my-adder-experiment/output/
+```
+
+Tips and recommendations
+
+- Create a small remote-run script in the experiment's `scripts/` directory (e.g., `run_remote.sh`) that builds and runs the test; then call it over SSH: `ssh user@remote '/home/user/sim-work/my-adder-experiment/scripts/run_remote.sh'`.
+- Use a separate remote workspace per experiment to avoid cross-contamination: `/home/user/sim-work/<experiment-name>`.
+- If multiple files change often, consider `rsync -av --delete` instead of `scp` to sync only diffs.
+- Capture simulator outputs to a versioned `output/` folder so you can compare runs.
+
+Automating from local (example)
+
+```powershell
+# sync, run, and fetch logs
+rsync -av --exclude '.git' Research/Experiments/my-adder-experiment/ user@remote:/home/user/sim-work/my-adder-experiment/
+ssh user@remote '/home/user/sim-work/my-adder-experiment/scripts/run_remote.sh'
+rsync -av user@remote:/home/user/sim-work/my-adder-experiment/output/ Research/Experiments/my-adder-experiment/output/
+```
+
+Security
+
+- Use SSH keys with passphrases and an agent for repeated operations.
+- Avoid storing plaintext credentials in scripts.
+
+If you want, I can:
+
+- create a `scripts/run_remote.sh` template inside `experiment-template/scripts/` (bash) and a local `scripts/run_remote.ps1` caller for Windows (PowerShell).  
+- or add a `rsync`-based helper in the template to make sync+run+fetch a single command.
