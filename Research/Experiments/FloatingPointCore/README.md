@@ -1,41 +1,71 @@
 # Floating Point Core Experiments
 
-This folder collects experiments related to the floating-point GPU core: adders, multipliers, pipelining strategies, and integration tests.
+Purpose
 
-## Core
+- Prototype and validate floating-point datapath components (32-bit adder, multiplier), pipelining strategies, and integration with the GPU datapath.
 
-## Objective
-Validate and prototype the GPU core datapath responsible for floating-point operations, focusing on a 32-bit floating-point adder and extendability to parallel execution.
+Hypothesis
 
-## Hypothesis
-A pipelined approach with separate exponent and mantissa handling will allow a 32-bit floating-point adder to meet timing with acceptable area on our target FPGA.
+- A pipelined design separating exponent and mantissa handling will meet timing while keeping area within target bounds for our FPGA platform.
 
-## Goals
-- Create a simple hardware datapath for floating-point operations (add, multiply).
-- Design for extendability to parallel lanes.
-- Learn the implementation details required for multi-cycle or pipelined floating-point adders.
+Directory structure (per experiment)
 
-## Method
-- **Setup:** RTL in `HDL/`, simulation with a SystemVerilog testbench, reference checks with Python/numpy.
-- **Procedure:**
-    1. Implement baseline combinational 32-bit adder.
-    2. Add pipelining stages for alignment, normalization, rounding.
-    3. Run 10k random vectors and compare to software reference.
-    4. Synthesize for target device and measure timing and utilization.
-- **Metrics:** Correctness (mismatches), cycle time, LUT/FF usage, latency.
+- `README.md` — this file (overview and quick-start)
+- `module/` — RTL and testbench sources
+- `notes.md` — design thoughts, daily logs, and pre-commit change drafts
+- `changelog.md` — optional external changelog
+- `scripts/` — helpers (run_remote, log_change)
 
-## Idea
-- [ ] Create a floating-point (32-bit) adder that can add two floats per cycle (or within target latency budget).
+Quick start (remote simulation / Vivado XSim)
 
-## Results
-- Summary: TBD — fill in after running simulations and synthesis.
-- Raw data: link waveforms, logs, and synthesis reports here when available.
+- Sync this experiment to your Linux machine with Vivado installed (see [Research/Experiments/README.md](Research/Experiments/README.md) for SSH/rsync patterns).
+- Example remote flow (Vivado `xvlog`/`xelab`/`xsim`):
 
-## Analysis
-- Interpretation of results and suggested next steps go here after experiments complete.
+```bash
+# on local machine
+rsync -av --exclude '.git' ./ user@remote:/home/user/sim-work/fp-experiment/
 
-## Status
-- [ ] Planned  - [x] In progress  - [ ] Complete
+# on remote machine (source Vivado env first):
+source /opt/Xilinx/Vivado/<version>/settings64.sh
+xvlog --sv module/*.sv tb/*.sv
+xelab -debug typical <top_module> -s sim_snapshot
+xsim sim_snapshot -R | tee output/sim.log
+```
 
-## Failures / Lessons Learned
-- Use this section to record failed approaches, debugs, and key learnings.
+Metrics
+
+- Correctness (mismatches vs software reference), latency (cycles), throughput (ops/cycle), timing (fmax), and resource usage (LUT/FF/BRAM).
+
+Design / Method
+
+- Setup RTL in `module/`, create a SystemVerilog TB in `module/tb/`, and add Python/Numpy reference generators for randomized verification.
+- Procedure:
+    1. Implement baseline combinational reference.
+    2. Add pipelining stages (alignment, normalization, rounding) and verify per-stage correctness.
+    3. Run randomized tests (10k+) and compare to reference.
+    4. Synthesize for target device and capture utilization/timing data.
+
+Notes and logging
+
+- Use `notes.md` for iterative thoughts and pre-commit drafts. When ready, prepend entries into the source files' in-file changelog using the helper scripts in `experiment-template/scripts/`.
+- Example in-file header:
+
+```
+=== IN-FILE CHANGELOG ===
+2026-06-12 | ajayc | commit: abc123 | Add baseline 32-bit FP adder
+- file: module/fp_adder.sv
+- details: implemented alignment stage; included normalization unit and baseline rounding
+=== END CHANGELOG ===
+```
+
+Results and artifacts
+
+- Store simulator logs, waveforms (`.wdb`), and synthesis reports in an `output/` folder and reference them here.
+
+Status
+
+- [ ] Planned  - [ ] In progress  - [ ] Complete
+
+Next steps
+
+- Create `module/` with the initial baseline adder and `notes.md` entries. I can add a `scripts/run_vivado.sh` template to `experiment-template/scripts/` if you'd like an automated Vivado-run wrapper.

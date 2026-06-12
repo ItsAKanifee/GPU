@@ -1,166 +1,40 @@
-# Experiments
+# Experiments (overview)
 
-## Purpose
+This folder contains short, reproducible experiments and microbenchmarks that inform GPU design decisions. Each experiment should follow the project experiment template so results and reproduction steps are consistent across work.
 
-This folder contains reproducible experiments, component validations, and microbenchmarks that inform GPU design decisions. Each experiment documents a hypothesis, the method used to validate it, the results, and the resulting design implications.
+What belongs here
 
-## Scope
-
-In scope:
-
-- Component validation (e.g., adders, ALUs, memory timing)
+- Component validations and microbenchmarks (e.g., adders, ALUs, FP datapath)
 - Design tradeoff analysis (precision vs. area, latency vs. throughput)
-- Microbenchmarks and performance characterization
-- RTL simulation and synthesis metrics
+- Simulation and synthesis experiments with reproducible inputs and outputs
 
-Out of scope:
+What to keep out
 
-- General research notes (use `Research/Preliminary/` or `Research/gpu-architecture/`)
-- Meeting notes and consultations (use `Research/consultations/`)
+- General research notes, meeting minutes, or consultations — put those in `Research/Preliminary/` or `Research/consultations/`.
 
-## Experiment Template
+Templates & helpers
 
-Use the structure below for new experiment documents. Keep entries concise (1–2 pages) and link large raw data files (waveforms, logs, reports) from the `FPGA Protoype/`, `HDL/`, or `Host/` folders.
+- Experiment template and guidance: [Research/Experiments/experiment-template/README.md](Research/Experiments/experiment-template/README.md)
+- Notes template: [Research/Experiments/experiment-template/notes.md](Research/Experiments/experiment-template/notes.md)
+- In-file changelog template: [Research/Experiments/experiment-template/changelog_template.md](Research/Experiments/experiment-template/changelog_template.md)
+- Helper scripts (log-change, run scripts): [Research/Experiments/experiment-template/scripts/](Research/Experiments/experiment-template/scripts/)
 
-```
-# <Experiment Name>
+Quick workflow
 
-## Objective
-Brief statement of what you're testing or validating (1–2 sentences).
+1. Create a new experiment directory under this folder (use a descriptive name).
+2. Copy the experiment template into the experiment folder and fill `Objective`, `Hypothesis`, `Method`, `Metrics`, `Results`, and `Analysis`.
+3. Draft detailed change-by-change notes in `notes.md` inside the experiment folder; use the helper scripts to prepend in-file changelog entries when ready.
+4. Use `rsync` to sync to a Linux tester or use the provided `run_vivado.sh` wrapper for Vivado/XSim runs (see `scripts/`).
 
-## Hypothesis
-What you expect to find or prove (1–2 sentences).
+Examples
 
-## Method
-- **Setup:** Tools, simulator/synthesis versions, target device, and testbench description.
-- **Procedure:** Step-by-step reproduction instructions.
-- **Metrics:** What you measure (latency, area, power, correctness).
+- Floating-point core experiments: [FloatingPointCore/README.md](FloatingPointCore/README.md)
+- Integer core experiments: [IntCore/README.md](IntCore/README.md)
 
-## Results
-- **Summary:** Key findings (bullets or table).
-- **Raw data:** Links to waveforms, logs, reports.
+Keeping artifacts
 
-## Analysis
-- Interpretation of results and whether the hypothesis held.
-- Design implications and recommended next steps.
+- Store large logs, waveforms, and synthesis reports in an `output/` directory inside the experiment folder and reference them from the experiment README.
 
-## Status
-- [ ] Planned  - [ ] In progress  - [ ] Complete
-```
+Need help?
 
-## How to Contribute
-
-1. Add a new experiment file named using the pattern: `component-testtype.md` (e.g., `adder-precision.md`).
-2. Copy the template above into the new file and fill in Objective, Hypothesis, Method, Metrics/Success Criteria, Results, Analysis, and Attachments.
-3. Link raw data from the appropriate folder rather than embedding large files.
-4. Update this README's index (see below) with the experiment name and status.
-
-## Current Experiments
-
-| Experiment | Component | Status | Notes |
-|---|---:|---:|---|
-| [Floating Point Core](FloatingPointCore/README.md) | Floating-point adder | [ ] In progress | See `Research/Experiments/FloatingPointCore/README.md` for details |
-| [Integer Core](IntCore/README.md) | Integer ALU datapath | [ ] Planned | See `Research/Experiments/IntCore/README.md` for details |
-
-## Example: Floating-Point Adder Validation
-
-### Objective
-
-Validate that a 32-bit IEEE-754 floating-point adder meets timing and correctness targets on the target FPGA.
-
-### Hypothesis
-
-A pipelined exponent/mantissa alignment and CLA-style mantissa adder will meet 100 MHz timing with acceptable area.
-
-### Method
-
-- **Setup:** Vivado 2021.2, target: Spartan-7 XC7A35T, SystemVerilog testbench, 10k random vectors generated with Python.
-- **Procedure:**
-    1. Synthesize the adder with timing constraints.
-    2. Run functional simulations and compare against a software reference (numpy).
-    3. Collect post-synthesis timing and utilization numbers.
-- **Metrics:** Cycle time, LUT/FF usage, mismatches against reference.
-
-### Results
-
-- **Summary:** Passed 10k random vectors (0 mismatches). Timing: 9.8 ns (≈102 MHz). Area: 1,240 LUTs.
-- **Raw data:** link waveforms, reports, and logs from the appropriate folder.
-
-### Analysis
-
-Adder meets current timing and area targets. Next: integrate into ALU and run end-to-end datapath tests.
-
-## Recommended Workflow
-
-1. Check existing experiments to avoid duplication.
-2. Document hypothesis and method as you run experiments.
-3. Store large outputs in `FPGA Protoype/`, `HDL/`, or `Host/` and link them here.
-4. After completion, update the status and add a brief summary to the index above.
-
-## References
-
-- See `Research/References.md` for external resources.
-- See `Research/gpu-architecture/` for architecture-level context.
-
-## Experiments — Running SystemVerilog tests remotely
-
-Purpose:
-
-- Notes and instructions for running experiment simulation and tests on a remote tester over SSH (when the simulator is not installed locally).
-
-Prerequisites:
-
-- SSH access to a remote machine with a SystemVerilog simulator (VCS, Questa, Icarus, etc.).
-- `ssh` and `scp` available locally.
-- A remote working directory where you can run builds and simulations.
-
-Quick steps:
-
-1. Copy the experiment folder (or specific files) to the remote host:
-
-```powershell
-scp -r Research/Experiments/my-adder-experiment user@remote:/home/user/sim-work/my-adder-experiment
-```
-
-1. SSH to the remote host and run the simulator or test script:
-
-```powershell
-ssh user@remote
-cd /home/user/sim-work/my-adder-experiment
-# example: run a Makefile target or simulator command
-make sim
-# or
-vcs -full64 -sverilog module/*.sv tb/*.sv -o simv && ./simv +UVM_TESTNAME=...
-```
-
-1. Retrieve results/logs back to local machine:
-
-```powershell
-scp user@remote:/home/user/sim-work/my-adder-experiment/output/*.log Research/Experiments/my-adder-experiment/output/
-```
-
-Tips and recommendations
-
-- Create a small remote-run script in the experiment's `scripts/` directory (e.g., `run_remote.sh`) that builds and runs the test; then call it over SSH: `ssh user@remote '/home/user/sim-work/my-adder-experiment/scripts/run_remote.sh'`.
-- Use a separate remote workspace per experiment to avoid cross-contamination: `/home/user/sim-work/<experiment-name>`.
-- If multiple files change often, consider `rsync -av --delete` instead of `scp` to sync only diffs.
-- Capture simulator outputs to a versioned `output/` folder so you can compare runs.
-
-Automating from local (example)
-
-```powershell
-# sync, run, and fetch logs
-rsync -av --exclude '.git' Research/Experiments/my-adder-experiment/ user@remote:/home/user/sim-work/my-adder-experiment/
-ssh user@remote '/home/user/sim-work/my-adder-experiment/scripts/run_remote.sh'
-rsync -av user@remote:/home/user/sim-work/my-adder-experiment/output/ Research/Experiments/my-adder-experiment/output/
-```
-
-Security
-
-- Use SSH keys with passphrases and an agent for repeated operations.
-- Avoid storing plaintext credentials in scripts.
-
-If you want, I can:
-
-- create a `scripts/run_remote.sh` template inside `experiment-template/scripts/` (bash) and a local `scripts/run_remote.ps1` caller for Windows (PowerShell).  
-- or add a `rsync`-based helper in the template to make sync+run+fetch a single command.
+- I can add example `module/` starters, or create a `run_remote.sh` wrapper for automatic sync+run+fetch if you want. Reply with which experiment to bootstrap and I'll create the files.

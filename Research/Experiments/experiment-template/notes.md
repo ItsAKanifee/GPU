@@ -22,6 +22,7 @@ Sections
   - Small, actionable items to progress this experiment.
 
 Guidelines
+
 - Be explicit: include dates, authors, filenames, and rationale for each decision.
 - Keep `Change-by-change` entries granular — these can be pasted into in-file changelogs later.
 - Link to diffs or commits where possible.
