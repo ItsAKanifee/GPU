@@ -7,10 +7,10 @@ This project is an exploration into designing and building my own Graphics Proce
 ## First Steps
 
 - **Prototyping with FPGA:**
-	- I will use an FPGA board as the initial platform for prototyping the GPU design. FPGAs allow for rapid iteration and testing of hardware concepts before committing to an ASIC or custom silicon.
+ 	- I will use an FPGA board as the initial platform for prototyping the GPU design. FPGAs allow for rapid iteration and testing of hardware concepts before committing to an ASIC or custom silicon.
 
 - **SystemVerilog:**
-	- The hardware description and logic for the GPU will be written in SystemVerilog, a modern hardware description language well-suited for complex digital systems.
+ 	- The hardware description and logic for the GPU will be written in SystemVerilog, a modern hardware description language well-suited for complex digital systems.
 
 ## Goals
 
