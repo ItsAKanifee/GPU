@@ -1,95 +1,53 @@
 # Single-Lane / Single-Thread Datapath (GPU Lane Experiment)
 
 ## Objective
-Define and experiment with a compact datapath representing a single GPU lane (one thread in a SIMD lane). Focus on the minimal hardware needed to execute integer ALU instructions, local register state, predicate/mask handling, and a simplified memory interface representative of an L1 per-slice.
+Define and experiment with a compact, synthesizable datapath representing a single GPU lane (one thread in a SIMD lane). Focus on integer ALU functionality, per-lane register state, predicate/mask handling, and a simplified L1-like memory interface.
 
-## Background & Scope
-This document targets a single-lane datapath as a building block for a wider GPU. The lane executes one thread's instructions in lock-step with other lanes; it must support:
-- per-lane register file (small, fast)
-- integer ALU (add, sub, mul, logical, shifts)
-- predicate/mask handling for lane enable/disable
-- a simple memory request/response interface (coalescing handled at higher level)
-- minimal control to support predication and simple branch/warp divergence handling
+## Hypothesis
+A minimal lane datapath (16x32 register file, combinational ALU, simple LSU) with a 1–3 stage pipeline will be sufficient to validate functional correctness and provide meaningful synthesis estimates (area and fmax) while remaining easy to integrate into a warp scheduler.
 
-The goal is a small, synthesizable SystemVerilog model suitable for functional simulation and early synthesis to evaluate area/fmax tradeoffs.
+## Method
+- **Setup:**
+  - RTL location: `HDL/int_core/` (create `lane_datapath.sv`, `lane_alu.sv`, `lane_rf.sv`, `lane_lsu.sv`)
+  - Testbenches: `HDL/int_core/tb/` (`lane_tb.sv`, `l1_model.sv`)
+  - Scripts: `Research/Experiments/IntCore/scripts/` for simulation, waveform capture, and golden-model comparison
+- **Procedure:**
+  1. Define a compact instruction encoding and the `lane_rf` (configurable register count and widths).
+  2. Implement `lane_alu` (combinational baseline) and wire into `lane_datapath` skeleton.
+  3. Add optional pipeline registers (baseline: Fetch/Decode -> Execute -> Writeback).
+  4. Implement a basic `lane_lsu` and a synchronous L1 testbench model with configurable latency.
+  5. Create a golden-model checker (Python/C) and a set of functional tests (random vectors and microbenchmarks).
+  6. Run simulations, collect waveforms, correctness logs, and cycle counts; iterate on hazard handling (scoreboard/bypass) as needed.
+- **Metrics:**
+  - Correctness: number of mismatches vs golden model
+  - Performance: cycles per kernel, IPC (assumed ideal scheduler)
+  - Synthesis: LUT/FF/BRAM usage and post-synthesis fmax
+  - Implementation complexity: lines of RTL and testbench
 
-## Goals for the Experiment
-- Implement a lane datapath that can execute a small instruction set (register-register, register-immediate, load/store, predicate ops).
-- Measure correctness against a golden model and capture cycle counts for representative kernels.
-- Evaluate pipeline depth (0–3 stages) and simple forwarding to avoid stalls.
-- Validate memory request behavior with a simple L1 model and concurrency from other lane stubs.
+## Progress
 
-## Datapath Overview
-High-level blocks (per lane):
-- `Lane Register File`: 16 x 32-bit (configurable) registers, two read ports, one write port.
-- `Instruction Decoder`: decodes a compact instruction format into control signals.
-- `ALU`: supports integer add, sub, mul (combinational or pipelined), logical ops, and shifts.
-- `Predicate / Mask Unit`: per-lane predicate register and lane-active mask input.
-- `Load/Store Unit (LSU)`: issues memory requests, supports simple loads/stores with byte/word granularity.
-- `Pipeline Registers`: optional stages between Fetch/Decode, Execute, and Writeback.
+- 6/11/26: Created a simple lane that can accept two 32 bit integers and opcode and perform on operation
+  - TODOs: Have the lane read from a register file
 
-Typical datapath flow:
-1. Fetch instruction (from an instruction stream provided by testbench).
-2. Decode and read operands from `Lane Register File`.
-3. Execute in `ALU` or issue memory request from `LSU`.
-4. Write results back to register file or signal completion to testbench.
+## Results
 
-## Instruction Set (minimal)
-- `ADD rd, rs1, rs2` — integer add
-- `MUL rd, rs1, rs2` — integer multiply
-- `LD rd, [rs1+imm]` — load word
-- `ST rs2, [rs1+imm]` — store word
-- `PSET p, rs1` — set predicate from register
-- `BRP offset` — branch if predicate true (handled by testbench warp scheduler)
+- **Summary:**
+	- Created a simple lane that can take a segment of a vector and compute
 
-Instruction encoding should be compact and easy to decode in the `Instruction Decoder` module used in the experiment.
+- **Raw data:**
+  - Place simulation outputs, waveform captures, and logs in `FPGA Protoype/results/int_core/lane/`.
 
-## Pipeline Options
-- Latency-0 (combinational ALU): simplest, lowest resource cost, may limit fmax.
-- 1–3 stage pipeline: `Fetch/Decode` -> `Execute` -> `Writeback` is recommended as a baseline.
-- Optional pipelined multiplier: consider if throughput matters; otherwise use combinational for simplicity.
-
-Hazard handling:
-- Simple register scoreboard and bypass paths between Execute and Writeback.
-- Stalls inserted by the testbench/scheduler if a load-use hazard occurs.
-
-## Memory Model for Experiments
-- Implement a small synchronous L1-Like memory model in the testbench that accepts requests and returns responses after configurable latency.
-- LSU issues requests with a tag; responses match tag.
-- For single-lane experiments, coalescing is not required — keep the LUT/FF count small.
-
-## Testbench & Verification
-- Create a SystemVerilog testbench under `HDL/int_core/tb/` that:
-  - Provides an instruction stream representing small kernels (e.g., A*B+C per element, simple reduction fragments).
-  - Drives per-lane active mask and predicate inputs.
-  - Provides an L1 memory model with configurable latency.
-  - Compares outputs to a golden model implemented in Python (numpy) or C.
-- Tests to run:
-  - Functional correctness for 10k random vectors.
-  - Microbenchmarks: sequences with dependent ALU ops, memory loads, and predicate-based masking.
-
-## Metrics
-- Correctness: zero mismatches vs golden model (or list mismatches).
-- Performance: cycles per kernel, instructions per cycle (IPC) assuming ideal scheduling.
-- Synthesis: LUTs/FFs/BRAMs for the lane datapath and fmax from post-synthesis timing.
-
-## Files / Locations
-- RTL: `HDL/int_core/` (add `lane_datapath.sv`, `lane_alu.sv`, `lane_rf.sv`, `lane_lsu.sv`)
-- Testbenches: `HDL/int_core/tb/` (add `lane_tb.sv`, `l1_model.sv`)
-- Scripts: `Research/Experiments/IntCore/scripts/` for simulation and comparison harnesses
-
-## Quick Implementation Plan
-1. Define instruction encoding and `lane_rf` API.
-2. Implement `lane_alu` (combinational) and connect to `lane_datapath` skeleton.
-3. Build `lane_lsu` and simple `l1_model` in testbench.
-4. Create golden-model checker and run functional tests.
+## Analysis
+The single-lane experiment isolates functional and timing characteristics of ALU and LSU implementations without warp-level complexity. This makes it easier to evaluate pipeline depth trade-offs, forwarding logic, and memory-latency tolerance prior to integrating into the warp scheduler.
 
 ## Status
 - [ ] Planned  - [x] In progress  - [ ] Complete
 
-## Next Steps
-- Implement `lane_datapath.sv` skeleton and a tight testbench. Run a small functional test (100 vectors) and report mismatches and resource estimates.
+## Attachments / Files
+- RTL: HDL/int_core/ (lane modules)
+- Testbenches: HDL/int_core/tb/
+- Scripts: Research/Experiments/IntCore/scripts/
+- Raw outputs: FPGA Protoype/results/int_core/lane/
 
-## Notes
-- Keep the lane simple; integration (warp scheduler, inter-lane coalescing) will be separate experiments.
-- Track all results in `FPGA Protoype/results/int_core/lane/`.
+## Next Steps
+- Implement `lane_datapath.sv` skeleton and `lane_alu.sv`, run a small functional test (100 vectors), and report mismatches and resource estimates.
