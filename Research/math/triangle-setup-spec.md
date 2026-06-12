@@ -3,18 +3,22 @@
 Status: Draft
 
 Purpose
+
 - Compute triangle coverage predicates and interpolation gradients needed by the rasterizer.
 
 Overview
+
 - Inputs: three vertices in screen space with per-vertex attributes (position (x,y,z,1/w), color, UVs, etc.).
 - Outputs: edge function coefficients, bounding box, triangle area (or reciprocal), attribute gradients (dA/dx, dA/dy), and a small descriptor for downstream tiles/fragment stage.
 
 Definitions and conventions
+
 - Coordinate system: screen-space integer or fixed-point pixel coordinates. Use top-left origin (0,0).
 - Fill rule: use top-left rule to avoid double-coverage between adjacent triangles.
 - Fixed-point format: suggest Q16.8 or Q12.4 depending on target FPGA DSP/BRAM tradeoffs; positions and gradients in signed fixed-point.
 
 Equations
+
 - For vertices v0=(x0,y0), v1=(x1,y1), v2=(x2,y2) compute signed area (2x triangle area):
   $$
   A = (x1-x0)*(y2-y0) - (x2-x0)*(y1-y0)
@@ -34,6 +38,7 @@ Equations
   $$
 
 Implementation notes (hardware)
+
 - Pipeline stages:
   1) Vertex gather & transform (if needed) — ensure vertices in screen space.
   2) Edge coeffs & area compute (DSPs for multiplies, subtractors).
@@ -47,14 +52,17 @@ Implementation notes (hardware)
   - Optionally quantize bounding boxes to tile units (e.g., 8x8) to reduce downstream workload.
 
 Numerical stability & edge cases
+
 - Cull degenerate triangles when |A| < epsilon.
 - Handle winding consistently; if A < 0, swap vertices or flip tests.
 - Avoid divisions in the hot path: compute reciprocal once per triangle, reuse for all attribute gradients.
 
 Top-left fill rule (practical hardware test)
+
 - For each edge, include pixels where edge > 0, and for horizontal edges, include the topmost/leftmost pixel. Implement via adjusted edge constants.
 
 Interfaces
+
 - Input bus (triangle FIFO):
   - Fields: v0,v1,v2 each with x,y, z, 1/w, attributes pointer or inline attributes.
 - Output descriptor (to rasterizer or tile-worker):
@@ -64,6 +72,7 @@ Interfaces
   - triangle ID / flags
 
 Testbench & verification
+
 - Create a CPU reference implementation (double precision) that computes edge functions, coverage and interpolated attributes.
 - Generate random triangles (including axis-aligned, thin, and large) and compare per-pixel coverage and attribute values against hardware fixed-point model.
 - Unit tests:
@@ -73,11 +82,13 @@ Testbench & verification
   - Bounding box clamping and tile alignment
 
 Deliverables for first draft
+
 - This spec file (you are reading it).
 - A small reference C/Python test harness to compute expected edge coeffs and gradients.
 - A simple RTL skeleton (Verilog/VHDL/SystemVerilog) module interface template for integration.
 
 Next steps (I will start these if you confirm):
+
 - Write the Python reference harness and run a few triangle tests.
 - Draft the RTL skeleton and interface in `Host/` or `HDL/` under a new folder `triangle_setup/`.
 

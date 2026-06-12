@@ -1,29 +1,30 @@
-# What is a FLOP 
+# What is a FLOP
 
 ## Source
 
-https://drilian.com/posts/2023.01.10-floating-point-numbers-and-rounding/
+<https://drilian.com/posts/2023.01.10-floating-point-numbers-and-rounding/>
 
-## Summary 
+## Summary
+
 ### How floating-point numbers work (concise)
 
 - Representation (IEEE 754, normalized numbers):
-    - Value = (-1)^{sign} * (1 + mantissa / 2^{mantissa_bits}) * 2^{exponent - bias}
-    - Single precision (32-bit): sign=1 bit, exponent=8 bits (bias=127), mantissa=23 bits
-    - Double precision (64-bit): sign=1 bit, exponent=11 bits (bias=1023), mantissa=52 bits
+  - Value = (-1)^{sign} *(1 + mantissa / 2^{mantissa_bits})* 2^{exponent - bias}
+  - Single precision (32-bit): sign=1 bit, exponent=8 bits (bias=127), mantissa=23 bits
+  - Double precision (64-bit): sign=1 bit, exponent=11 bits (bias=1023), mantissa=52 bits
 
 - Components:
-    - Sign bit: 1 bit (0 = positive, 1 = negative)
-    - Exponent: biased integer that scales the significand by powers of two
-    - Mantissa (fraction / significand): fractional part; normalized numbers have an implicit leading 1
+  - Sign bit: 1 bit (0 = positive, 1 = negative)
+  - Exponent: biased integer that scales the significand by powers of two
+  - Mantissa (fraction / significand): fractional part; normalized numbers have an implicit leading 1
 
 - Special values / edge cases:
-    - Exponent = 0: zero or subnormal (denormal) numbers (reduced precision)
-    - Exponent = all 1s: infinity or NaN
+  - Exponent = 0: zero or subnormal (denormal) numbers (reduced precision)
+  - Exponent = all 1s: infinity or NaN
 
 - Rounding and precision:
-    - Mantissa bit-width limits precision; arithmetic is rounded to the representable nearest value (commonly round-to-nearest-even)
-    - Subnormals and rounding modes affect tiny values and numerical stability
+  - Mantissa bit-width limits precision; arithmetic is rounded to the representable nearest value (commonly round-to-nearest-even)
+  - Subnormals and rounding modes affect tiny values and numerical stability
 
 ### FLOP / FMA (practical)
 

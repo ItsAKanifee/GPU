@@ -1,12 +1,15 @@
 # Single-Lane / Single-Thread Datapath (GPU Lane Experiment)
 
 ## Objective
+
 Define and experiment with a compact, synthesizable datapath representing a single GPU lane (one thread in a SIMD lane). Focus on integer ALU functionality, per-lane register state, predicate/mask handling, and a simplified L1-like memory interface.
 
 ## Hypothesis
+
 A minimal lane datapath (16x32 register file, combinational ALU, simple LSU) with a 1–3 stage pipeline will be sufficient to validate functional correctness and provide meaningful synthesis estimates (area and fmax) while remaining easy to integrate into a warp scheduler.
 
 ## Method
+
 - **Setup:**
   - RTL location: `HDL/int_core/` (create `lane_datapath.sv`, `lane_alu.sv`, `lane_rf.sv`, `lane_lsu.sv`)
   - Testbenches: `HDL/int_core/tb/` (`lane_tb.sv`, `l1_model.sv`)
@@ -32,22 +35,26 @@ A minimal lane datapath (16x32 register file, combinational ALU, simple LSU) wit
 ## Results
 
 - **Summary:**
-	- Created a simple lane that can take a segment of a vector and compute
+  - Created a simple lane that can take a segment of a vector and compute
 
 - **Raw data:**
   - Place simulation outputs, waveform captures, and logs in `FPGA Protoype/results/int_core/lane/`.
 
 ## Analysis
+
 The single-lane experiment isolates functional and timing characteristics of ALU and LSU implementations without warp-level complexity. This makes it easier to evaluate pipeline depth trade-offs, forwarding logic, and memory-latency tolerance prior to integrating into the warp scheduler.
 
 ## Status
+
 - [ ] Planned  - [x] In progress  - [ ] Complete
 
 ## Attachments / Files
+
 - RTL: HDL/int_core/ (lane modules)
 - Testbenches: HDL/int_core/tb/
 - Scripts: Research/Experiments/IntCore/scripts/
 - Raw outputs: FPGA Protoype/results/int_core/lane/
 
 ## Next Steps
+
 - Implement `lane_datapath.sv` skeleton and `lane_alu.sv`, run a small functional test (100 vectors), and report mismatches and resource estimates.
