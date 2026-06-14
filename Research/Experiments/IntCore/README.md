@@ -12,6 +12,8 @@ Structure
 
 - `README.md` — this overview and quick-start notes.
 - `module/` — RTL sources (HDL/SystemVerilog, tests)
+- `alu_datapath.md` — An overview over the thought process and experimentation of the datapath
+- `warp.md` — An overview over the thought process and experimentation of the warp
 - `notes.md` — design thoughts, daily logs, and pre-commit change drafts.
 - `changelog.md` — optional per-experiment changelog (human-readable history).
 - `scripts/` — helper scripts (remote-run, logging helpers).
