@@ -1,4 +1,8 @@
 `timescale 1ns/1ps
+
+// Setup for a GPU Lane
+// TODO Read from Shared Memory
+
 module int_lane#(parameter WIDTH = 32) (
     input logic                 clk,
     input logic                 rst,
@@ -10,8 +14,10 @@ module int_lane#(parameter WIDTH = 32) (
 
     logic [WIDTH-1:0] var_a, var_b;
 
+    // Input Stored variables into the ALU
     alu#(.WIDTH(WIDTH)) dut(.a(var_a), .b(var_b), .opcode, .result(out));
 
+    // Lane acts as a register that holds var_a and var_b
     always_ff @(posedge clk) begin
         if(rst) begin
             var_a = 0;
