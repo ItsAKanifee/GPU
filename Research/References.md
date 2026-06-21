@@ -41,3 +41,13 @@ This file lists external articles and resources referenced in the `Research/` no
   - URL: <https://copilot.microsoft.com/shares/pages/BYH6RXGfwTZEFJ6aGU7wE>
   - Referenced in: `consultations/copilot/essentials.md`
   - Notes: Another Copilot session share containing notes and discussions from consultations.
+
+- Nvidia Nsight Graphics — "GPU Trace — System Architecture"
+  - URL: <https://archive.docs.nvidia.com/nsight-graphics/2025.5/UserGuide/gpu-trace-system-architecture.html>
+  - Referenced in: `gpu-architecture/nvidia_arc.md`
+  - Notes: Developer guide describing GPU logical units, throughput and occupancy metrics, L1/VRAM/PCI diagnostics, async compute behavior, and warp-launch limit analysis — useful for profiling and optimization with Nsight Graphics.
+
+- AMD GCN3 — "Instruction Set Architecture (high-level)"
+  - URL: <https://docs.amd.com/v/u/en-US/gcn3-instruction-set-architecture>
+  - Referenced in: `gpu-architecture/amd_isa.md`
+  - Notes: High-level description of AMD's GCN3 GPU instruction set architecture; broad architectural overview useful as a complement to vendor-specific profiling guides.
