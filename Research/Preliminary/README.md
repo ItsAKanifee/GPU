@@ -19,3 +19,4 @@ A GPU is a processing unit, made to run multiple instructions in parallel
 ### Need to Learn Further
 - [ ] How do Floating Points work in Hardware, and how to implement floating point operations
 - [ ] Futher understand hardware implementation of GPU cores
+- [ ] Architecture Fundumentals, components, and other aspects
