@@ -18,7 +18,7 @@ This workspace collects the research, notes, and references for our custom GPU p
 - Add or update content as Markdown, keeping text concise and link-heavy for references.
 - For new experiments or code, include a short README (what, how, results) in the relevant folder.
 - Name files clearly: `topic.short-summary.md` (examples: `Fundamentals.md`, `vector-add-bench.md`).
-- When adding external references, include `Source:` with a URL and a one-paragraph summary.
+- When adding external references, include `Source:` with a URL and a summary.
 - Use `Research/consultations/` for meeting notes and `Research/consultations/copilot/` for AI-assisted threads.
 
 ## Top-level folders (current)
@@ -31,12 +31,13 @@ This workspace collects the research, notes, and references for our custom GPU p
 - `Preliminary/` — short technical notes (FLOPS, math references, quick derivations).
 - `Experiments/` — reproducible experiment descriptions and raw results.
 - `consultations/` — meeting notes, lists of questions, and expert contacts.
+- `diagrams/` — digrams ranging from very simple block diagrams to complex schematics going over the archticture of GPUs and sup components
 
 ## Recommended workflow
 
 1. Search the `Research/` tree for the topic you need (e.g., memory, SMs, FLOPS).
 2. Add findings to the appropriate folder and create a one-paragraph summary at the top of the file.
-3. If the change affects design decisions, add a short note under `Experiments/` describing the impact and suggested follow-ups.
+3. If the change affects design decisions, add a short note under `Experiments/.../notes.md` describing the impact and suggested follow-ups.
 
 ## Contacts & references
 
