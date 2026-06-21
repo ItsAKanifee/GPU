@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Prototype and build an Integer Pipeline, that operates on data from memory
+Design and test an Integer Pipeline, that operates on data from memory
 
 ## Goals
 
