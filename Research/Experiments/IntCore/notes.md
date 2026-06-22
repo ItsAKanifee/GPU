@@ -45,7 +45,8 @@ This document is a place where I right down my progress and ideas as I proceed w
 - **6/22/26** I was looking over CUDA code to examine how a GPU thread differentiates from a normal CPU-run thread, and I noticed somethings of interest
   - Here is a very simple sample CUDA code (maybe try to implement it on the GPU for testing purposes)
 
-    ```__global__void saxpy(int n, float a, float *x, float *y) {
+    ``` cuda
+    __global__void saxpy(int n, float a, float *x, float *y) {
           int i = blockIdx.x*blockDim.x + threadIdx.x; 
           if (i < n) y[i] = a*x[i] + y[i];
         } 
@@ -71,3 +72,4 @@ This document is a place where I right down my progress and ideas as I proceed w
       - Data (floats and ints) are assigned to memory within the GPU by CudaMalloc
       - Memcpy transfers information between CPU and GPU
         - Eases confusion about data transfer, CPU controls information to/from GPU
+        - Furthermore, thread identifier can be used to access specific part of shared memory, meaning x and y are shared between all threads (and cores), and they each select a specific portion of memory themselves
