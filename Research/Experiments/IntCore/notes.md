@@ -29,6 +29,15 @@ This document is a place where I right down my progress and ideas as I proceed w
     - Each path should also have access to its own registers so that they can store values within the path
     - How the data is going to be transfered within the GPU:
       - Host (CPU) provides data to GPU -> GPU writes data to L2 -> Each SM reads the same data in L2 -> The SM takes the data from L2 and writes to L1 -> L1 is segmented between multiple lanes -> Each lane reads its own distinct portion of L1 and operates on that peice of memory, writing it back to L1
+        - Ok I actually have to figure this out, bc I am pretty sure that is not right: How does data travel through a GPU?
 
-  - 3. *Testing and Understanding*
-    - Here is my basic High-Level for the Int-path:
+  - 3. *Design*
+    - Here is my basic High-Level design for the Int-path: `diagrams/ideas/basic_intpath.drawio`
+    - Things I added:
+      - PC
+        - Different GPUs have different designs, but for simplicity, have all lanes share the same PC
+      - IR
+        - Shared with all other pipelines in the block
+    - Take inspiration from CPU datapath, but simplify in aspects
+      - Write values from ALU to registers to be used in the program, or to shared memory with other pipelines
+    - Just for later, but benchmark GPU using IOPs (Integer Operations per Second)
