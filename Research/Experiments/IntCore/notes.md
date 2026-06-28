@@ -73,3 +73,26 @@ This document is a place where I right down my progress and ideas as I proceed w
       - Memcpy transfers information between CPU and GPU
         - Eases confusion about data transfer, CPU controls information to/from GPU
         - Furthermore, thread identifier can be used to access specific part of shared memory, meaning x and y are shared between all threads (and cores), and they each select a specific portion of memory themselves
+
+  - Furthermore, I think I am going to take inspiration (copy) the datapath of a basic cpu core from 18240. It has the potential to be scaled up, but still seems simple enough to run multiple instances at once
+
+- *6/27/26:* Ok, so I have been consulting with copilot, and reimplementing my design within the block diagram. I realized I should document a high-level overview of what exactly I want the lane to do, and exxpand from there (inputs and outputs), which will help me figure out its configuration
+  - One other thing, apparently each lane does not directly access memory, instead they compute their respective memory addresses to an LSU that is shared by all lanes within the warp
+
+  - **High-Level Overview**
+    - The lane should be able to recieve the current opcode from the instrcution register telling it what to do
+    - The lane should have its own distinct identifier tied to itself that it can read and output
+    - Each laned should read and write values to its own data register
+    - The lane should be able to perform data operations on recieved memory and pass it back to shared memory
+    - Each lane has 2 vars (A and B) that can either be called from a register or be an immediate value
+    - ***Inputs:*** Id, alu_op, rd_en, wr_en, A_src, B_src, dst_idx, imm, active
+    -***Outputs*** Id, result
+  
+  - **Specifications:**
+    - The ID is hardwired to the lane, stored in a register that is loaded once
+    - Result will be the actual value computed to be written to memory (32 bit int)
+    - Alu_op must be 4 bits long, and enable line is 1 bit, and the src will be dependent on how many sources there are
+      - Still being figured out bc trying to figure out how to keep quick access with minimal overhead
+    - The data register within the lane will function as a multi-demensional register, having two read points being able to access both var_A and var_B
+    - Values should either be given the instrucctionn being written to a register or to the LSU
+    - Active is set by the warp to indicate whether the lane is on or off
