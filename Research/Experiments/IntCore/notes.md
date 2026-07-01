@@ -96,3 +96,7 @@ This document is a place where I right down my progress and ideas as I proceed w
     - The data register within the lane will function as a multi-demensional register, having two read points being able to access both var_A and var_B
     - Values should either be given the instrucctionn being written to a register or to the LSU
     - Active is set by the warp to indicate whether the lane is on or off
+
+- *7/1/26:* I revised the entire interior datapath, still stored in `diagrams/ideas/basic_intpath.drawio`
+  - I think this is a good point to save this design to base off my initial hypothesis, and any changes should be documented in another diagram and in my notes
+  - I will try to implement the design in system verilog and simulate with vcs
