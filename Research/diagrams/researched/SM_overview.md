@@ -13,7 +13,3 @@ This file collects SM-block diagrams and annotations for reuse in documentation 
 - Execution pipeline: Fetch/Decode -> Scheduler -> ALUs -> Writeback
 - Key on-chip resources: register file, shared memory (scratchpad), L1 data cache
 - Useful for: mapping lane/datapath replication and scheduler placement in FPGA prototype
-
-## Usage
-
-- Consider exporting the diagram (with attribution) into `Diagrams/` as a local PNG for slides.

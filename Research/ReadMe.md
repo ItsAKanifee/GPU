@@ -41,6 +41,5 @@ This workspace collects the research, notes, and references for our custom GPU p
 
 ## Contacts & references
 
-- Keep a running list of external references in `Research/References.md` 
+- Keep a running list of external references in `Research/References.md`
 - Use `Research/consultations/Experts/` to store contact details and discussion logs.
-

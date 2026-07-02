@@ -39,6 +39,7 @@ Summarize key GPU architecture concepts from `Research/` and `Research/gpu-archi
 
 ## Diagrams
 
+- Stored in `Research/diagrams/researched/` and `Diagrams/` for reference and reuse in slides, documentation, and FPGA prototype planning.
 
 ## References
 
