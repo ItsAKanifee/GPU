@@ -1,6 +1,12 @@
 # GPU Architecture Overview
 
+## Overview
+
+This section provides a high-level overview of GPU architecture, focusing on the key components, their roles, and how they interact to execute graphics and compute workloads efficiently. It draws from multiple sources, including vendor documentation and academic resources, to provide a comprehensive understanding of modern GPU design. It is highly recommended to read through the linked sources for a deeper understanding of the underlying architecture and design principles.
+
 ## Brief overview of key GPU components
+
+Below is a summary of the main components found in modern GPUs, along with their primary functions (note that some of these components may vary between vendors and architectures, and others may be outside of scope of this project):
 
 - **Shader Core / Streaming Multiprocessor (SM):** A programmable compute block that executes many lightweight threads in parallel. It contains ALUs, local register files, and shared memory and runs shader or compute kernels.
 

@@ -2,21 +2,30 @@
 
 ## Objective
 
-Summarize key GPU architecture concepts from `Research/` and `Research/gpu-architecture/` into a concise reference for the FPGA prototype and experiment planning.
+This document provides the layout and design of the planned GPU architecture for the project. It outlines the key components, their roles, and how they interact to execute graphics and compute workloads efficiently. The design is based on research from various sources, including vendor documentation and academic resources, to provide a comprehensive understanding of modern GPU design.
 
 ## Key Components
 
-- Streaming Multiprocessor (SM): programmable compute block containing ALUs, register files, shared memory, and schedulers.
-- ALUs / Vector Units: integer and FP arithmetic units that perform the bulk compute work.
-- Register File: per-thread fast storage; register pressure affects occupancy and spills.
-- Shared Memory / Scratchpad (L1-like): low-latency on-chip memory for intra-block communication and reuse.
-- L1 / L2 Caches: small per-SM caches (L1) and larger unified caches (L2) to reduce DRAM traffic.
-- Memory Controller & VRAM (HBM/GDDR): high-bandwidth off-chip memory; bandwidth-limited workloads need careful mapping.
-- Scheduler / Warp Dispatcher: issues warps/wavefronts to execution units and hides latency by switching among ready warps.
+Here is a list of need-to-know components for the architecture of this GPU. While this design is based off of designs from Nvidia and AMD, naming conventions of certain components may differ from the origianl sources.
+
+### Single Thread Components
+
+- *ALU:* Performs integer and floating-point (*subject to change*) arithmetic and logical operations, providing the core computations for the GPU processes
+
+- *Data_Register:* A 32-bit wide register that can store multiple values at a time. It can be written to by the ALU and read from ports A and B.
+
+- *Lane:* A single thread of execution within a block. Each lane has its own distinct identifier and can read and write values to its own data register. Lanes perform data operations on received memory and pass results back to shared memory.
+
+- *Thread_Register:* Stores the current location of the lane within the block and which block it is in. This identifier is used to access specific portions of shared memory.
+
+### Shared Components
+
+- *Instruction Register:* Holds the current instruction being executed by the GPU, allowing for proper sequencing and control of operations (shared with all lanes in a block)
+
 
 ## Execution Model & Parallelism
 
-- SIMT/SIMD-style execution: groups of lanes (warps/wavefronts) execute the same instruction in lockstep.
+- SIMT/SIMD-style execution: groups of lanes (blocks) execute the same instruction in lockstep.
 - Warp divergence serializes execution when threads in a warp take different control-flow paths.
 - Hardware hides latency via high concurrency (many resident warps) and fast context switching among warps.
 
