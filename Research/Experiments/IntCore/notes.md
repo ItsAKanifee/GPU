@@ -100,3 +100,5 @@ This document is a place where I right down my progress and ideas as I proceed w
 - *7/1/26:* I revised the entire interior datapath, still stored in `diagrams/ideas/basic_intpath.drawio`
   - I think this is a good point to save this design to base off my initial hypothesis, and any changes should be documented in another diagram and in my notes
   - I will try to implement the design in system verilog and simulate with vcs
+
+  ![Datapath](../../diagrams/exports/basic_intpath.png)

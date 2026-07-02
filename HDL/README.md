@@ -1,39 +1,25 @@
 # HDL
 
-This folder contains RTL and testbenches for core experiments (integer and floating-point datapaths). Use this as the canonical place for synthesizable modules, simulation benches, and small verification utilities.
+This folder contains RTL and testbenches for core components of the GPU prototype. It is intended to contain finalized, synthesizable modules and their associated testbenches. For research notes, diagrams, and other references, see the `Research/` and `Diagrams/` folders.
 
-Structure
-- `HDL/int_core/` — integer-core RTL and testbenches (modules: `alu.sv`, `datapath.sv`, `tb/datapath_tb.sv`).
-- `HDL/<other>/` — add other component folders (e.g., `fp_core/`) for organization.
+## Structure
 
-Quick Usage
+- Files are organized by module type and function.
+- *Files to be added:* `HDL/cores/` for core modules, `HDL/memory/` for memory modules, `HDL/interfaces/` for interface modules, and `HDL/tb/` for testbenches.
 
-1) Simulate with `iverilog` (simple SystemVerilog features only):
+## Quick Usage
 
-```powershell
-# from workspace root
-cd "HDL/int_core/tb"
-iverilog -g2012 -o datapath_tb ../../int_core/datapath.sv ../../int_core/alu.sv datapath_tb.sv
-vvp datapath_tb
-```
+1) Simulate with `vcs`
 
-2) Prefer a commercial/SystemVerilog-aware simulator (Questa/ModelSim) for full SV support and waveform debugging:
+## Notes
 
-```powershell
-# Questa/ModelSim example
-vlib work
-vlog -sv ../../int_core/*.sv datapath_tb.sv
-vsim -c work.datapath_tb -do "run -all; exit"
-```
-
-Notes
-- The supplied testbench is a small randomized functional test intended as a starting point. Replace or extend vectors and checkers as needed.
 - For synthesis and timing runs use Vivado or your preferred FPGA toolchain; keep synthesizable modules in `HDL/` root folders for easier flow.
-- Keep large simulation outputs (VCDs, reports) out of the repo — place them under `FPGA Protoype/results/` and link from experiment notes.
 
-Style
+## Style
+
 - Prefer parameterized modules (`parameter WIDTH = 32`) and small interfaces so components are reusable.
 - Place testbenches in `tb/` subfolders and keep them self-contained.
 
-Next steps
-- Add a Python golden model and runner script under `Research/Experiments/IntCore/scripts/` to automate regression runs.
+## Next steps
+
+- [ ] Finalize the integer core datapath and ALU modules.

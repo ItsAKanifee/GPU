@@ -35,68 +35,10 @@ Summarize key GPU architecture concepts from `Research/` and `Research/gpu-archi
 - Memory budget example: small on-chip memory (8–16 KB shared), register file and instruction memory sized to fit prototype constraints.
 - Control: simple round-robin warp scheduler; in-order pipeline (3–5 stages) is a practical baseline.
 
+*Plan subject to change as research and prototyping progress.*
+
 ## Diagrams
 
-### High-level GPU block diagram
-
-```mermaid
-flowchart LR
- CPU["CPU / Host"] -->|Commands / DMA| PCIe["PCIe / NVLink"]
- PCIe --> MC["Memory Controller / VRAM"]
- PCIe --> CP["Command Processor"]
- CP --> SMs["SMs (Streaming Multiprocessors)"]
- SMs --> ALU["ALUs"]
- SMs --> TMU["Texture Units"]
- SMs --> ROP["ROPs / Pixel Backend"]
- MC --> VRAM["VRAM (HBM/GDDR)"]
- SMs --> L2["L2 Cache"]
- L2 --> MC
-```
-
-### Streaming Multiprocessor (SM) internal view
-
-```mermaid
-flowchart TB
- subgraph SM["Streaming Multiprocessor"]
-  IFU("Instruction Fetch/Decode")
-  Sched["Scheduler"]
-  RF["Register File"]
-  ALUs["ALUs / Vector Units"]
-  Shared["Shared Memory"]
-  L1["L1 / Data Cache"]
- end
- IFU --> Sched --> ALUs
- RF --> ALUs
- Shared --> ALUs
- ALUs --> L1
- L1 --> L2["L2 Cache"]
-```
-
-### Source comparison
-
-| Source | Typical warp | Focus / tone | Memory emphasis | Best use |
-|---|---:|---|---|---|
-| ENCCS (course) | 32 | Academic, detailed SM + diagrams | Detailed memory hierarchy, banking | Fundamentals, SM internals |
-| Scale Computing | varies / unspecified | Vendor-oriented overview | Practical bandwidth/cache considerations | Practical mapping, bandwidth estimates |
-| GPU Demystified | 32 | Introductory primer | High-level discussion of coalescing and registers | Quick primer for CUDA/SIMT concepts |
-
-### Diagrams (local)
-
-- [SM overview](../Diagrams/SM_overview.md)
-- [Memory hierarchy notes](../Diagrams/memory_hierarchy.md)
-
-## FPGA Mapping Implications
-
-- Map shared memory to block RAM / BRAMs and tune sizes for resource availability.
-- Implement lane datapaths as replicated RTL instances; use a warp scheduler module to broadcast instructions.
-- Use small, cycle-accurate L1 models in testbench to model memory latency and contention.
-- Prioritize simple, testable designs first (combinational ALU or 1-stage pipeline) then iterate toward pipelined units.
-
-## Next Steps
-
-- Implement and verify `lane_datapath.sv` and `lane_alu.sv` under `HDL/int_core/`.
-- Create a warp scheduler testbench that exercises divergence and memory contention scenarios.
-- Add annotated diagrams to `Diagrams/` (exported from trusted sources) and create a comparison table in `Overview/architecture-summary.md` contrasting sources (ENCCS, Scale Computing, GPU Demystified).
 
 ## References
 

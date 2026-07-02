@@ -3,7 +3,8 @@
 ## Overall Goals
 
 - [x] Understand the workings and core components of a GPU
-- [ ] Create a basic implementation able to run simple tasks like matrix multiplication
+- [ ] Draw block diagrams of the GPU architecture and components
+- [ ] Create a basic implementation able to run simple tasks like vector multiplication
 - [ ] Allow for the GPU to be 'programmed'
 - [ ] Have it draw 2D shapes
 
