@@ -10,18 +10,19 @@ Here is a list of need-to-know components for the architecture of this GPU. Whil
 
 ### Single Thread Components
 
+- *Lane:* A single thread of execution within a block. Each lane has its own distinct identifier and can read and write values to its own data register. Lanes perform data operations on received memory and pass results back to shared memory.
+
 - *ALU:* Performs integer and floating-point (*subject to change*) arithmetic and logical operations, providing the core computations for the GPU processes
 
 - *Data_Register:* A 32-bit wide register that can store multiple values at a time. It can be written to by the ALU and read from ports A and B.
-
-- *Lane:* A single thread of execution within a block. Each lane has its own distinct identifier and can read and write values to its own data register. Lanes perform data operations on received memory and pass results back to shared memory.
 
 - *Thread_Register:* Stores the current location of the lane within the block and which block it is in. This identifier is used to access specific portions of shared memory.
 
 ### Shared Components
 
-- *Instruction Register:* Holds the current instruction being executed by the GPU, allowing for proper sequencing and control of operations (shared with all lanes in a block)
+- *Block:* A group of lanes that execute the same instruction in lockstep. Each block has its own shared memory and can communicate with other blocks through global memory.
 
+- *Instruction Register:* Holds the current instruction being executed by the GPU, allowing for proper sequencing and control of operations (shared with all lanes in a block)
 
 ## Execution Model & Parallelism
 

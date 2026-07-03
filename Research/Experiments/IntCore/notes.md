@@ -102,3 +102,5 @@ This document is a place where I right down my progress and ideas as I proceed w
   - I will try to implement the design in system verilog and simulate with vcs
 
   ![Datapath](../../diagrams/exports/basic_intpath.png)
+
+- *7/3/26:* I got to making and testing the ALU and data_registers, both of the test_benches show that they work, now to design the path
