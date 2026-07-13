@@ -105,3 +105,7 @@ This document is a place where I right down my progress and ideas as I proceed w
 
 - *7/3/26:* I got to making and testing the ALU and data_registers, both of the test_benches show that they work, now to design the path
   - I was looking at the NPU architecture on AMDs website, and their demo test was a pixel filtering algorithm where you feed the NPU an image, and each pixel is rendered to a different color. This might be an interesting way to test my device
+
+- *7/13/26:* I finsihed the base model for the 'int_lane' based on my plan, and it seems to work as I wanted it to. It can do basic operations within 1 clock cycle
+  - Need to do some more testing and more complicated operations, but for the most part the basic structure works for now
+  - Will start designing the block
