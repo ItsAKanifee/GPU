@@ -104,3 +104,4 @@ This document is a place where I right down my progress and ideas as I proceed w
   ![Datapath](../../diagrams/exports/basic_intpath.png)
 
 - *7/3/26:* I got to making and testing the ALU and data_registers, both of the test_benches show that they work, now to design the path
+  - I was looking at the NPU architecture on AMDs website, and their demo test was a pixel filtering algorithm where you feed the NPU an image, and each pixel is rendered to a different color. This might be an interesting way to test my device
