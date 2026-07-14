@@ -8,6 +8,10 @@ This document provides the layout and design of the planned GPU architecture for
 
 Here is a list of need-to-know components for the architecture of this GPU. While this design is based off of designs from Nvidia and AMD, naming conventions of certain components may differ from the origianl sources.
 
+### SIMD / SIMT
+
+Single Input Multiple Device / Thread architecture is where multiple cores recieve the same instruction, and compute with different data simultaneosly
+
 ### Single Thread Components
 
 - *Lane:* A single thread of execution within a block. Each lane has its own distinct identifier and can read and write values to its own data register. Lanes perform data operations on received memory and pass results back to shared memory.

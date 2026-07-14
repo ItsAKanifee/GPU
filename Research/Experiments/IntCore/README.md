@@ -8,10 +8,18 @@ Design and test an Integer Pipeline, that operates on data from memory
 
 - [x] Create an ALU that can perform simple operations (add, sub, mul) on integers
 - [x] Design a block diagram that can be used to implement a lane that can perform operations on data from inputs and store them into either a register, or output them to shared memory (shared memory will be simulated for now)
-- [ ] Create a lane in sv that can perform operations on data from inputs and store them into either a register, or output them to shared memory (shared memory will be simulated for now)
-- [ ] Create a testbench that can test the lane with various microarchitecture inputs and outputs, and verify that the lane is functioning correctly
+- [x] Create a lane in sv that can perform operations on data from inputs and store them into either a register, or output them to shared memory (shared memory will be simulated for now)
+- [x] Create a testbench that can test the lane with various microarchitecture inputs and outputs, and verify that the lane is functioning correctly
 
 ## Specs
+
+- Inputs:
+  - Instructions (32 bits):
+    - Opcode (4 bits)
+    - A_idx, B_idx, dst_idx (3 bits each)
+    - A_sel, B_sel (2 bits each)
+    - Imm (Remaining bits)
+  - LSR_rd (32 bits)
 
 - Simple Function ALU (takes 2 32-bit inputs):
   - Arithmetic Operations:
@@ -41,4 +49,6 @@ Design and test an Integer Pipeline, that operates on data from memory
   - 32-bit wide
   - Can store a multiple values at a time
   - Can be written to by the ALU, and read from ports A and B
-- *To be updated*
+
+- *To be added* 
+  - ID_Register
