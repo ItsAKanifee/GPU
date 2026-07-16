@@ -29,7 +29,6 @@ This workspace collects the research, notes, and references for our custom GPU p
 - `fpga-notes/` — FPGA-focused experiments, toolchain notes, and bitstream considerations.
 - `gpu-architecture/` — curated architecture articles and summaries (CUDA, SIMT, SMs).
 - `Preliminary/` — short technical notes (FLOPS, math references, quick derivations).
-- `Experiments/` — reproducible experiment descriptions and raw results.
 - `consultations/` — meeting notes, lists of questions, and expert contacts.
 - `diagrams/` — digrams ranging from very simple block diagrams to complex schematics going over the archticture of GPUs and sup components
 
@@ -37,7 +36,7 @@ This workspace collects the research, notes, and references for our custom GPU p
 
 1. Search the `Research/` tree for the topic you need (e.g., memory, SMs, FLOPS).
 2. Add findings to the appropriate folder and create a one-paragraph summary at the top of the file.
-3. If the change affects design decisions, add a short note under `Experiments/.../notes.md` describing the impact and suggested follow-ups.
+3. If the change affects design decisions, add a short note under `fpga-notes/.../notes.md` describing the impact and suggested follow-ups.
 
 ## Contacts & references
 

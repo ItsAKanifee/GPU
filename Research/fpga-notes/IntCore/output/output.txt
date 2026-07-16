@@ -1,0 +1,18 @@
+Chronologic VCS simulator copyright 1991-2022
+Contains Synopsys proprietary information.
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Jul 16 13:49 2026
+                   0 Instruction: 0000 000 000 000 xx xx 0 00000000000000000000000000001010, Result:         20
+                   5 Instruction: 0000 000 000 000 xx 11 0 00000000000000000000000000001010, Result:         10
+                  15 Instruction: 0000 000 000 000 xx 11 1 00000000000000000000000000001010, Result:         10
+                  25 Instruction: 0000 000 000 000 xx 11 0 00000000000000000000000000001010, Result:         10
+                  35 Instruction: 0000 000 000 000 xx 01 1 00000000000000000000000000001010, Result:         20
+                  45 Instruction: 0000 000 000 000 xx 01 0 00000000000000000000000000001010, Result:         20
+                  55 Instruction: 0010 000 000 111 10 01 1 00000000000000000000000000001010, Result:         40
+                  65 Instruction: 0010 111 000 111 10 01 0 00000000000000000000000000001010, Result:         40
+                  75 Instruction: 0010 111 000 111 01 01 0 00000000000000000000000000001010, Result:        800
+$finish called from file "int_lane_tb.sv", line 53.
+$finish at simulation time                   86
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 86
+CPU Time:      0.310 seconds;       Data structure size:   0.0Mb
+Thu Jul 16 13:49:41 2026
