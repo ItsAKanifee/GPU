@@ -2,7 +2,7 @@
 
 ## Objective
 
-This document provides the layout and design of the planned GPU architecture for the project. It outlines the key components, their roles, and how they interact to execute graphics and compute workloads efficiently. The design is based on research from various sources, including vendor documentation and academic resources, to provide a comprehensive understanding of modern GPU design.
+This document provides the layout and design of the planned GPU architecture for the 525 project. It outlines the key components, their roles, and how they interact to execute graphics and compute workloads efficiently. The design is based on research from various sources, including vendor documentation and academic resources, to provide a comprehensive understanding of modern GPU design.
 
 ## Key Components
 
@@ -26,7 +26,25 @@ Single Input Multiple Device / Thread architecture is where multiple cores recie
 
 - *Block:* A group of lanes that execute the same instruction in lockstep. Each block has its own shared memory and can communicate with other blocks through global memory.
 
+- *Streaming Multiprocessor:* The lcatioon where the set of blocks run
+
 - *Instruction Register:* Holds the current instruction being executed by the GPU, allowing for proper sequencing and control of operations (shared with all lanes in a block)
+
+- *PC:* Stores the memory address for the current instruction that the lanes will run
+
+- *Lane Activator:* Sets whether a lane is on or off
+
+- *Block Scheduler:* Determines which lanes are running the current instruction, and operates on the PC for branching instances
+
+- *L1 Cache:* Memory unique to the block that contains fast access memory points
+  - SRAM
+
+- *L2 Cache* Memory shared between all blocks in the SM, unique to each SM
+  - SRAM
+
+- *Shared Memory / VRAM:* Memory of the entire device shared between all SMs in the system  
+  - DRAM
+  - Considering there is only 1 SM, this serves functionally the same purpose as L2 Cache, but having different storage and speed capabilities
 
 ## Execution Model & Parallelism
 
@@ -44,8 +62,8 @@ Single Input Multiple Device / Thread architecture is where multiple cores recie
 ## Design Goals (project-specific)
 
 - Prototype target: single SM design to validate functional datapath and scheduler.
-- Warp size: 8 lanes (configurable); resident warps: 2–4 for latency hiding.
-- Datapath: 32-bit integer ALU baseline (optional multi-cycle FP units later).
+- Block size: 8 lanes (configurable); resident blocks: 2–4 for latency hiding.
+- Datapath: 32-bit integer ALU baseline (optional multi-cycle FP units later), 8x32-bit registers
 - Memory budget example: small on-chip memory (8–16 KB shared), register file and instruction memory sized to fit prototype constraints.
 - Control: simple round-robin warp scheduler; in-order pipeline (3–5 stages) is a practical baseline.
 

@@ -1,45 +1,20 @@
 # FPGA Prototype
 
 ## Overview
-This folder contains the starting point for designing my own GPU. Here, I will document research, ideas, and the prototyping plan for implementing a basic GPU structure on an FPGA Boolean Board.
 
-## Goal
-- Design a Graphics GPU and implement it in SystemVerilog
-- *Specs*:
-    - Render a still image at 1080p resolution
+This folder contains the finalized prototype for my project. After experimentation of how to design the modules and how they connect, this is where the working design model exists that will be expanded upon for a 525 tapeout
 
-## Prototyping Plan
+## Goals / Milestones
 
-1. **Research & Requirements Gathering**
-    - Study basic GPU architecture and open-source GPU projects
-    - Identify minimal feature set for first prototype (e.g., framebuffer, rasterizer)
+- [ ] Create working models of all sub components of a GPU
+- [ ] Successfuly connect all components together that can run simple simulations
+- [ ] Translate to FPGA
+- *To be expanded upon completion of the prototype*
 
-2. **Development Environment Setup**
-    - Set up FPGA toolchain (e.g., Quartus, Vivado, or relevant tools)
-    - Prepare SystemVerilog simulation environment
+## Layout
 
-3. **Module Design & Implementation**
-    - Design and implement core modules:
-        - Framebuffer (memory for storing pixel data)
-        - Simple rasterizer (draw basic shapes or patterns)
-        - VGA/HDMI output (for image display)
+- `HDL/`: Contains all SV code of the working prototype categorized under their respective component
 
-4. **Integration & Testing**
-    - Integrate modules and test in simulation
-    - Synthesize and deploy to FPGA board
-    - Debug and iterate on hardware
+## Research
 
-5. **Milestones**
-    - [ ] Do a basic Matrix Multiplication
-    - [ ] Display a solid color on screen
-    - [ ] Display a test pattern (e.g., color bars)
-    - [ ] Render a static 1080p image from memory
-    - [ ] Add basic drawing primitives (lines, rectangles)
-
-6. **Documentation & Next Steps**
-    - Document design decisions and results
-    - Plan for additional features (e.g., simple shaders, input handling)
-
----
-
-*This plan will be updated as progress is made and new challenges are encountered.*
+- Design notes, implemetnation choices, etc. are all documented in the `Research/Experiments/` folder

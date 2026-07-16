@@ -11,8 +11,8 @@
 ## Design Goals
 
 - 1 SM, SIMT core
-  - Warp size: 8
-  - Resident warps: 2–4
+  - Block size: 8
+  - Resident Block: 2–4
 
 - Datapath
   - 32‑bit INT ALU (optional multi‑cycle FP16/FP32)
