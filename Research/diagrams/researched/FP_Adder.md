@@ -1,10 +1,9 @@
 # Floating Point Adder
 
-![alt text](image.png)
-
 ## Source
 
-<https://cs.stackexchange.com/questions/164737/how-does-signed-floating-point-adder-implement>
+- URL: <https://cs.stackexchange.com/questions/164737/how-does-signed-floating-point-adder-implement>
+- Notes: Shows how to make a floating point adder
 
 ## Explanation
 

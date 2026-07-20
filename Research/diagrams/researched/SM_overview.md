@@ -1,4 +1,4 @@
-# SM (Streaming Multiprocessor) Overview
+# Volta SM Architecture
 
 This file collects SM-block diagrams and annotations for reuse in documentation and slides.
 

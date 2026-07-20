@@ -4,6 +4,10 @@
 
 This section provides a high-level overview of GPU architecture, focusing on the key components, their roles, and how they interact to execute graphics and compute workloads efficiently. It draws from multiple sources, including vendor documentation and academic resources, to provide a comprehensive understanding of modern GPU design. It is highly recommended to read through the linked sources for a deeper understanding of the underlying architecture and design principles.
 
+## GPU Design Basics
+
+GPUs perform operations with SIMD architecture (Single Instruction Multiple Data) where the same operation is done on multiple sets of data simultaneously. Thus, multithreading can be achieved, performing thousands of calculations at a time
+
 ## Brief overview of key GPU components
 
 Below is a summary of the main components found in modern GPUs, along with their primary functions (note that some of these components may vary between vendors and architectures, and others may be outside of scope of this project):
@@ -46,35 +50,33 @@ Each component above plays a distinct role in balancing compute throughput, memo
 
 ### High-level GPU block diagram
 
-```mermaid
-flowchart LR
-    CPU["CPU / Host"] -->|Commands / DMA| PCIe["PCIe / NVLink"]
-    PCIe --> MC["Memory Controller / VRAM"]
-    PCIe --> CP["Command Processor"]
-    CP --> SMs["SMs (Streaming Multiprocessors)"]
-    SMs --> ALU["ALUs"]
-    SMs --> TMU["Texture Units"]
-    SMs --> ROP["ROPs / Pixel Backend"]
-    MC --> VRAM["VRAM (HBM/GDDR)"]
-    SMs --> L2["L2 Cache"]
-    L2 --> MC
-```
+![alt text](../diagrams/exports/memory_hierarchy.png)
 
 ### Streaming Multiprocessor (SM) internal view
 
-```mermaid
-flowchart TB
-    subgraph SM["Streaming Multiprocessor"]
-        IFU("Instruction Fetch/Decode")
-        Sched["Scheduler"]
-        RF["Register File"]
-        ALUs["ALUs / Vector Units"]
-        Shared["Shared Memory"]
-        L1["L1 / Data Cache"]
-    end
-    IFU --> Sched --> ALUs
-    RF --> ALUs
-    Shared --> ALUs
-    ALUs --> L1
-    L1 --> L2["L2 Cache"]
-```
+- Volta Diagram:
+![alt text](../diagrams/exports/volta-sm-arch.png)
+
+- Simple Diagram:
+![alt text](../diagrams/exports/simple_sm.png)
+
+## Additional Files
+
+- `GPU_arch_basics_p1` and `GPU_arch_basics_p2`:
+  - High level understanding of what a GPU is doing
+  - Basics of SIMD architecture and memory heirarchy
+  - Understanding of basic GPU terms (thread, warp, etc.)
+
+- `amd_isa`:
+  - Official ISA documentation for the AMD GCN3, a modern GPU
+  - Very in depth understanding of the microarchitecture of an industry grade GPU
+  - Logic in designs and how instructions are supposed to operate
+  - More in depth look at underlying hardware
+
+- `memory_requests`:
+  - A Paper that discuessed faster ways to request data from memory
+  - Good for understanding memory layout and where slowdowns can happen within a GPU
+
+- `warp_formation`:
+  - A Paper that discusses best practices to assign warps within a GPU
+  - Helpful for understanding how Warps are formed and assigned
