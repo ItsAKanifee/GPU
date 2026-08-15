@@ -14,7 +14,7 @@ This document is a place where I right down my progress and ideas as I proceed w
 
   - Fortunately, I have an idea. I will approach basic instruction traversal first. I will create an instruction cache that will store 64 bytes worth of instructions (or at least a simple assembly program) inside, and the PC just has to retrieve each one send to the IR
 
-- **8/24/26:** A bit of a late follow up, but I want to move path branching and memory retrieval into their own respective folders b/c these details are fairly complicated and require experimentation specific to those. What I have been able to achieve though is a gpu warp that can instructions into its instruction cache and run a simple program.
+- **8/14/26:** A bit of a late follow up, but I want to move path branching and memory retrieval into their own respective folders b/c these details are fairly complicated and require experimentation specific to those. What I have been able to achieve though is a gpu warp that can instructions into its instruction cache and run a simple program.
   - Short rundown of what is in the modules:
     - Block: A module that can run any desired number of lanes (deafuat: 8)
     - PC: Module that stores what instruction line from the instruction cache is to be read to the IR
